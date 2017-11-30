@@ -15,7 +15,7 @@ include_directories(include
   $ENV{Boost_Root}
 )
 
-add_library(${PROJECT_NAME} SHARED src/connection.cpp)
+add_library(${PROJECT_NAME} src/connection.cpp)
 target_link_libraries(${PROJECT_NAME} 
   ${rclcpp_LIBRARIES} 
   ${xmlrpcpp_LIBRARIES}
