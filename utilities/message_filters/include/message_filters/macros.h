@@ -25,10 +25,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef MESSAGE_FILTERS_MACROS_H_
+#ifndef MESSAGE_FILTERS_MACROS_H_ 
 #define MESSAGE_FILTERS_MACROS_H_
 
+#ifndef ROS2
 #include <ros/macros.h> // for the DECL's
+#endif // !ROS2
 
 // Import/export for windows dll's and visibility for gcc shared libraries.
 

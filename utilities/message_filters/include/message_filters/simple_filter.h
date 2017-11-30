@@ -40,7 +40,9 @@
 #include "connection.h"
 #include "signal1.h"
 #include <ros/message_event.h>
+#ifndef ROS2
 #include <ros/subscription_callback_helper.h>
+#endif // !ROS2
 
 #include <boost/bind.hpp>
 
