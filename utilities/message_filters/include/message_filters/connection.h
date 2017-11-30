@@ -39,8 +39,6 @@
 #include <boost/signals2/connection.hpp>
 #include "macros.h"
 
-#include <message_filters/visibility_control.h>
-
 namespace message_filters
 {
 
