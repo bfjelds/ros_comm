@@ -58,7 +58,7 @@ namespace message_filters
 
     virtual void call(const ros::MessageEvent<M const>& event, bool nonconst_need_copy) = 0;
 
-    typedef boost::shared_ptr<CallbackHelper1<M> > Ptr;
+    typedef std::shared_ptr<CallbackHelper1<M> > Ptr;
   };
 
   template<typename P, typename M>
@@ -70,7 +70,7 @@ namespace message_filters
     typedef boost::function<void(typename Adapter::Parameter)> Callback;
     typedef typename Adapter::Event Event;
 #else
-    typedef boost::function<void(const boost::shared_ptr<M const>& msg)> Callback;
+    typedef std::function<void(const std::shared_ptr<M const>& msg)> Callback;
 #endif // !ROS2
 
     CallbackHelper1T(const Callback& cb)
@@ -96,12 +96,12 @@ namespace message_filters
   template<class M>
   class Signal1
   {
-    typedef boost::shared_ptr<CallbackHelper1<M> > CallbackHelper1Ptr;
+    typedef std::shared_ptr<CallbackHelper1<M> > CallbackHelper1Ptr;
     typedef std::vector<CallbackHelper1Ptr> V_CallbackHelper1;
 
   public:
     template<typename P>
-    CallbackHelper1Ptr addCallback(const boost::function<void(P)>& callback)
+    CallbackHelper1Ptr addCallback(const std::function<void(P)>& callback)
     {
       CallbackHelper1T<P, M>* helper = new CallbackHelper1T<P, M>(callback);
 

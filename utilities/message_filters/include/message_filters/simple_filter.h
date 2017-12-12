@@ -62,10 +62,10 @@ template<class M>
 class SimpleFilter : public boost::noncopyable
 {
 public:
-  typedef boost::shared_ptr<M const> MConstPtr;
-  typedef boost::function<void(const MConstPtr&)> Callback;
+  typedef std::shared_ptr<M const> MConstPtr;
+  typedef std::function<void(const MConstPtr&)> Callback;
   typedef ros::MessageEvent<M const> EventType;
-  typedef boost::function<void(const EventType&)> EventCallback;
+  typedef std::function<void(const EventType&)> EventCallback;
 
   /**
    * \brief Register a callback to be called when this filter has passed
@@ -75,7 +75,7 @@ public:
   Connection registerCallback(const C& callback)
   {
     typename CallbackHelper1<M>::Ptr helper = signal_.addCallback(Callback(callback));
-    return Connection(boost::bind(&Signal::removeCallback, &signal_, helper));
+    return Connection(std::bind(&Signal::removeCallback, &signal_, helper));
   }
 
   /**
@@ -83,9 +83,9 @@ public:
    * \param callback The callback to call
    */
   template<typename P>
-  Connection registerCallback(const boost::function<void(P)>& callback)
+  Connection registerCallback(const std::function<void(P)>& callback)
   {
-    return Connection(boost::bind(&Signal::removeCallback, &signal_, signal_.addCallback(callback)));
+    return Connection(std::bind(&Signal::removeCallback, &signal_, signal_.addCallback(callback)));
   }
 
   /**
@@ -95,8 +95,8 @@ public:
   template<typename P>
   Connection registerCallback(void(*callback)(P))
   {
-    typename CallbackHelper1<M>::Ptr helper = signal_.template addCallback<P>(boost::bind(callback, _1));
-    return Connection(boost::bind(&Signal::removeCallback, &signal_, helper));
+    typename CallbackHelper1<M>::Ptr helper = signal_.template addCallback<P>(std::bind(callback, std::placeholders::_1));
+    return Connection(std::bind(&Signal::removeCallback, &signal_, helper));
   }
 
   /**
@@ -106,8 +106,8 @@ public:
   template<typename T, typename P>
   Connection registerCallback(void(T::*callback)(P), T* t)
   {
-    typename CallbackHelper1<M>::Ptr helper = signal_.template addCallback<P>(boost::bind(callback, t, _1));
-    return Connection(boost::bind(&Signal::removeCallback, &signal_, helper));
+    typename CallbackHelper1<M>::Ptr helper = signal_.template addCallback<P>(std::bind(callback, t, std::placeholders::_1));
+    return Connection(std::bind(&Signal::removeCallback, &signal_, helper));
   }
 
   /**
