@@ -188,7 +188,7 @@ namespace message_filters
     /**
     * \brief Returns the internal ros::Subscriber object
     */
-    const std::shared_ptr<rclcpp::subscription::Subscription<M>> getSubscriber() const { return sub_; }
+    const std::shared_ptr<rclcpp::Subscription<M>> getSubscriber() const { return sub_; }
 
     /**
     * \brief Does nothing.  Provided so that Subscriber may be used in a message_filters::Chain
@@ -215,7 +215,7 @@ namespace message_filters
     }
 
     std::string topic_;
-    std::shared_ptr<rclcpp::subscription::Subscription<M>> sub_;
+    std::shared_ptr<rclcpp::Subscription<M>> sub_;
     rclcpp::Node::SharedPtr nh_;
   };
 
